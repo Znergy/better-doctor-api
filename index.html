@@ -9,18 +9,34 @@
   </head>
   <body>
     <div class="container-fluid">
-
+      <div class="jumbotron">
+        <h1>Better Doctor API</h1>
+      </div>
+      <div class="row well">
+        <div class="col-md-4">
+          <div class="filters">
+            <select id="selectFilter">
+              <option value="Search by Location">Location</option>
+              <option value="Search by Name">Name</option>
+              <option value="Search by Medical Issue">Medical Issue</option>
+              <option value="Search by Speciality">Speciality</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-addon" id="span-search-name">Search by Location</span><input class="form-control" name="search" id="userSearch" type="text" required="">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-primary" id="search" name="button">Search</button>
+        </div>
+      </div>
     </div>
     <div class="container">
       <div class="search-doctor">
         <div class="row">
-          <div class="col-md-6">
-            <h1>Working!</h1>
-            <h1 id="currentTime">112</h1>
-          </div>
-          <div class="col-md-6">
-            <input type="text" id="userLocation" placeholder="555 Portland Ave" name="" value="">
-            <button type="button" id="search" name="button">Search</button>
+          <div class="col-md-12 well">
             <ul id="doctorList">
 
             </ul>
