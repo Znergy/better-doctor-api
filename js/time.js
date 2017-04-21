@@ -1,5 +1,5 @@
 function Time() {
-  var time;
+  
 }
 
 Time.prototype.getCurrentTime = function() {
