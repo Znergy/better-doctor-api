@@ -9,10 +9,25 @@ $(function() {
   var doctor = new Doctor();
   $("#currentTime").text(time.getCurrentTime());
   $("#search").click(function() {
-    var userLocation = $("#userLocation").val();
+    var userSearch = $("#userSearch").val();
+    var filter = $("#selectFilter").val();
+    var query;
+    if(filter.includes("Location")) {
+      query = "doctors";
+    } else if(filter.includes("Name")) {
+      userSearch = 37.773,-122.413,100;
+      query = "doctors";
+    } else if(filter.includes("Medical")) {
+      userSearch = 37.773,-122.413,100;
+      query = "conditions";
+    } else if(filter.includes("Speciality")) {
+      userSearch = 37.773,-122.413,100;
+      query = "specialties";
+    }
+
     $.ajax({
       type: "GET",
-      url: "https://api.betterdoctor.com/2016-03-01/doctors?location=37.773,-122.413,100&skip=2&limit=10&user_key=" + apiKey,
+      url: "https://api.betterdoctor.com/2016-03-01/" + query + "?query=" + userSearch + "&skip=2&limit=10&user_key=" + apiKey,
       dataType: "json",
       success: processJSON
     });
@@ -20,7 +35,7 @@ $(function() {
     function processJSON(json) {
       var doctorInformationArray = new Array();
       for(var i = 0; i < json.data.length; i++){
-        var name = json.data[i].profile.first_name;
+        var name = json.data[i].profile.first_name + " " + json.data[i].profile.last_name;
         var id = json.data[i].uid;
 
         var doctor = {
@@ -42,17 +57,29 @@ $(function() {
     $("#span-search-name").text(filter);
   });
 
-  $("#doctorList li").click(function() {
-    alert("working!");
-    $(".search-doctor").hide();
-    $(".doctor-page").show();
-    var $this = $(this);
-    var doctorId = parseInt($this.attr('value'));
-    var doctorObject = doctor.find(doctorId);
-    $("#doctorName").text(doctorObject.name);
-    $("#doctorBio").text(doctorObject.bio);
-    $(".doctor-image img").attr('src', doctorObject.image);
-  });
+  // function showDoctorPersonalPage() {
+  //   console.log("inside doctorlist li click event");
+  //   $(".search-doctor").hide();
+  //   $(".doctor-page").show();
+    // var doctorId = parseInt($(this).attr('value'));
+    // var doctorObject = doctor.find(doctorId);
+    // console.log(doctorObject);
+    // $("#doctorName").text(doctorObject.name);
+    // $("#doctorBio").text(doctorObject.bio);
+    // $(".doctor-image img").attr('src', doctorObject.image);
+  // }
+
+  // $("#doctorList li").click(function() {
+  //   console.log("inside doctorlist li click event");
+  //   $(".search-doctor").hide();
+  //   $(".doctor-page").show();
+  //   var doctorId = parseInt($(this).attr('value'));
+  //   var doctorObject = doctor.find(doctorId);
+  //   console.log(doctorObject);
+  //   $("#doctorName").text(doctorObject.name);
+  //   $("#doctorBio").text(doctorObject.bio);
+  //   $(".doctor-image img").attr('src', doctorObject.image);
+  // });
 
 });
 
