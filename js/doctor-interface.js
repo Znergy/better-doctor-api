@@ -1,8 +1,12 @@
 var apiKey = require('./../.env').apiKey;
 var Time = require('../js/time.js').timeModule;
+var Doctor = require('../js/doctor.js').doctorModule;
+// var express = require('express');
+// var app = express();
 
 $(function() {
   var time = new Time();
+  var doctor = new Doctor();
   $("#currentTime").text(time.getCurrentTime());
   $("#search").click(function() {
     var userLocation = $("#userLocation").val();
@@ -14,10 +18,39 @@ $(function() {
     });
 
     function processJSON(json) {
+      var doctorInformationArray = new Array();
       for(var i = 0; i < json.data.length; i++){
-        var doctorName = json.data[i].profile.first_name;
-        $("#doctorList").append("<li><a href=''>" + doctorName + "</li>");
+        var name = json.data[i].profile.first_name;
+        var id = json.data[i].uid;
+
+        var doctor = {
+          "name": name,
+          "id": id
+        }
+        doctorInformationArray.push(doctor);
+
+        $("#doctorList").append("<li class='doctor' value='" + doctorId + "'><a href='/doctor/" + doctorId +"'>" + doctorName + "</a></li>");
       }
+      localStorage.setItem("doctorInformationArray", JSON.stringify(doctorInformationArray));
     }
   });
+
+  $("#doctorList li").click(function() {
+    $(".search-doctor").hide();
+    $(".doctor-page").show();
+    var $this = $(this);
+    var doctorId = parseInt($this.attr('value'));
+    var doctorObject = doctor.find(doctorId);
+    $("#doctorName").text(doctorObject.name);
+    $("#doctorBio").text(doctorObject.bio);
+    $(".doctor-image img").attr('src', doctorObject.image);
+  });
+
 });
+
+// app.get('/doctor/:id', function (req, res) {
+//   var doctorId = parseInt(request.params(':id'));
+//   var newDoctor = doctor.find(doctorId);
+//
+//   res.send('');
+// });
