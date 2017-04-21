@@ -29,13 +29,21 @@ $(function() {
         }
         doctorInformationArray.push(doctor);
 
-        $("#doctorList").append("<li class='doctor' value='" + doctorId + "'><a href='/doctor/" + doctorId +"'>" + doctorName + "</a></li>");
+        $("#doctorList").append("<li class='doctor' value='" + id + "'>" + name + "</li>");
+
+        // $("#doctorList").append("<li class='doctor' value='" + id + "'><a href='/doctor/" + id +"'>" + name + "</a></li>");
       }
       localStorage.setItem("doctorInformationArray", JSON.stringify(doctorInformationArray));
     }
   });
 
+  $("#selectFilter").change(function() {
+    var filter = $("#selectFilter").val();
+    $("#span-search-name").text(filter);
+  });
+
   $("#doctorList li").click(function() {
+    alert("working!");
     $(".search-doctor").hide();
     $(".doctor-page").show();
     var $this = $(this);
