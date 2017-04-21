@@ -1,12 +1,14 @@
+var gulp = require('gulp');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var concat = require('gulp-concat');
-var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var utilities = require('gulp-util');
 var del = require('del');
 var jshint = require('gulp-jshint');
 var browserSync = require('browser-sync').create();
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
 
 var lib = require('bower-files')({
   "overrides":{
@@ -74,7 +76,7 @@ gulp.task('bowerCSS', function() {
     .pipe(gulp.dest('./build/css'));
 });
 
-gulp.task('bower', ['bowerJS', 'bowerCSS', 'bowerFonts']);
+gulp.task('bower', ['bowerJS', 'bowerCSS']);
 
 gulp.task('serve', function() {
   browserSync.init({
