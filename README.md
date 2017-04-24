@@ -1,34 +1,19 @@
-# _Better Doctor API_
+# _Better Doctor_
 
-#### _Web Application_
+#### _Web Application for finding a doctor using Better Doctor's API._
 
 #### By _**Ryan Jones**_
 
 ## Description
-_This web application uses_
-
-
-## User Stories
-* _As a user.._
-* _As a user.._
-* _As a user.._
-* _As a user.._
-* _As a user.._
-* _As a user.._
-* _As a user.._
-* _As a user.._
-
+_This web application uses Better Doctor's API, to list doctors that match your search criteria. You can search by location, name, condition, or speciality._
 
 ## Specifications
 
 | Behavior                   | Input Example     | Output Example    |
 | -------------------------- | -----------------:| -----------------:|
-| Routing takes user from page to page | button is clicked | User redirected to the stylist-form page, url changes accordingly |
-| When the stylist form is submitted, the stylist is added | form submitted | New stylist added with matching fields |
-| When the client form is submitted, the client is added | form submitted | New client created with matching fields |
-| Client instances are added to correct team | Object is created from the form | New client belongs to a specific stylist |
-| Stylist are able to be listed out | Viewing all stylists | Each stylist shows with the corresponding stylist name |
-| Clients are able to be listed out under specific stylist | Viewing specific stylist | All clients are shown belonging to that stylist |
+| User can search for doctor by name | User clicks 'search' | User is shown a list of doctors matching that criteria |
+| User can filter for certain doctors | User filters by name | User is show a list of doctors matching that name |
+| Ajax request to Better Doctor API | User clicks 'search' | Based off the user's choices the API call is fine tuned and the html is dynamically changed using JQuery |
 
 
 
