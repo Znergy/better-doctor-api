@@ -9,13 +9,23 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="jumbotron">
-        <h1>Better Doctor API</h1>
+      <div class="row jumbotron">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <div class="logo">
+              <img src="img/logo.png" class="img-responsive" alt="logo">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <h1>Better Doctor API</h1>
+          </div>
+        </div>
       </div>
-      <div class="row well">
+      <div class="row search well">
         <div class="col-md-4">
           <div class="filters">
-            <select id="selectFilter">
+            <select class="selectpicker" id="selectFilter">
               <option value="Search by Location">Location</option>
               <option value="Search by Name">Name</option>
               <option value="Search by Medical Issue">Medical Issue</option>
@@ -29,7 +39,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <button type="button" class="btn btn-primary" id="search" name="button">Search</button>
+          <button type="button" class="btn btn-search btn-primary" id="search" name="button">Search</button>
         </div>
       </div>
     </div>
@@ -37,9 +47,9 @@
       <div class="search-doctor">
         <div class="row">
           <div class="col-md-12 custom-well well">
-            <ul id="doctorList">
+            <div id="doctorList">
 
-            </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -58,10 +68,10 @@
       </div>
     </div>
     <div class="container-fluid">
-      <div class="footer well">
+      <div class="row footer well">
         <div class="row">
           <div class="col-md-12">
-            <h3><a href="https://github.com/znergy">Ryan Jones</a></h3>
+            <h3>Made by <a href="https://github.com/znergy">Ryan Jones</a></h3>
           </div>
         </div>
       </div>
