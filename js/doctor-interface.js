@@ -10,46 +10,69 @@ $(function() {
   $("#currentTime").text(time.getCurrentTime());
   $("#search").click(function() {
     var userSearch = $("#userSearch").val();
+    if(userSearch !== "") {
     var filter = $("#selectFilter").val();
+    var searchParamater;
     var query;
     if(filter.includes("Location")) {
+      searchParamater = "query";
       query = "doctors";
     } else if(filter.includes("Name")) {
-      userSearch = 37.773,-122.413,100;
+      searchParamater = "name";
       query = "doctors";
     } else if(filter.includes("Medical")) {
-      userSearch = 37.773,-122.413,100;
-      query = "conditions";
+      searchParamater = "query";
+      query = "doctors";
     } else if(filter.includes("Speciality")) {
-      userSearch = 37.773,-122.413,100;
-      query = "specialties";
+      searchParamater = "query";
+      query = "doctors";
     }
 
     $.ajax({
       type: "GET",
-      url: "https://api.betterdoctor.com/2016-03-01/" + query + "?query=" + userSearch + "&skip=2&limit=10&user_key=" + apiKey,
+      url: "https://api.betterdoctor.com/2016-03-01/" + query + "?" + searchParamater + "=" + userSearch + "&skip=2&limit=10&user_key=" + apiKey,
       dataType: "json",
       success: processJSON
     });
 
     function processJSON(json) {
+      $("#doctorList").empty();
       var doctorInformationArray = new Array();
       for(var i = 0; i < json.data.length; i++){
         var name = json.data[i].profile.first_name + " " + json.data[i].profile.last_name;
         var id = json.data[i].uid;
+        var imageSrc = json.data[i].profile.image_url;
+        var bio = json.data[i].profile.bio;
 
         var doctor = {
           "name": name,
           "id": id
         }
         doctorInformationArray.push(doctor);
-
-        $("#doctorList").append("<li class='doctor' value='" + id + "'>" + name + "</li>");
+        if(bio !== "") {
+          $("#doctorList").append(
+            "<div class='row'>" +
+              "<div class='doctor-profile'>" +
+                "<div class='col-md-6'>" +
+                  "<h3>" + name + "</h3>" +
+                  "<p>" + bio + "</p>" +
+                "</div>" +
+                "<div class='col-md-4'>" +
+                  "<img class='img-responsive' src='" + imageSrc + "' alt='" + name + "'>" +
+                "</div>" +
+                "<div class='col-md-2'></div>" +
+              "</div>" +
+            "</div>"
+          );
+        }
 
         // $("#doctorList").append("<li class='doctor' value='" + id + "'><a href='/doctor/" + id +"'>" + name + "</a></li>");
       }
       localStorage.setItem("doctorInformationArray", JSON.stringify(doctorInformationArray));
     }
+  } else {
+    alert("Invalid Input");
+  }
   });
 
   $("#selectFilter").change(function() {
